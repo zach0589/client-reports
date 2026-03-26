@@ -6,30 +6,76 @@
 <title>Spot On Solutions — Client Reports</title>
 <style>
   body { font-family: 'Segoe UI', system-ui, sans-serif; background: #1B3A5C; color: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
-  .container { text-align: center; max-width: 600px; padding: 40px; }
+  .container { text-align: center; max-width: 500px; padding: 40px; }
   h1 { font-size: 2em; margin-bottom: 8px; }
-  .gold { color: #E8B830; }
   p { color: #99AABB; font-size: 1em; margin-bottom: 30px; }
-  a.btn { display: inline-block; background: #E8B830; color: #1B3A5C; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: 700; margin: 6px; transition: opacity 0.2s; }
-  a.btn:hover { opacity: 0.85; }
-  a.btn.pending { background: #3d5a7a; color: #7a9ab5; cursor: default; }
-  a.btn.pending:hover { opacity: 1; }
+  .select-wrap { position: relative; width: 100%; }
+  select {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 1.05em;
+    font-weight: 600;
+    font-family: inherit;
+    border: 2px solid #E8B830;
+    border-radius: 8px;
+    background: #244E73;
+    color: #fff;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  select:hover, select:focus { border-color: #f0cc5e; background: #2d5f8a; }
+  select option { background: #1B3A5C; color: #fff; padding: 8px; }
+  select option:disabled { color: #5a7a9a; }
+  .arrow { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); pointer-events: none; color: #E8B830; font-size: 1.2em; }
+  .go-btn {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 12px 40px;
+    background: #E8B830;
+    color: #1B3A5C;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.05em;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .go-btn:hover { opacity: 0.85; }
+  .go-btn:disabled { opacity: 0.4; cursor: default; }
 </style>
 </head>
 <body>
 <div class="container">
   <h1>Spot On Solutions</h1>
   <p>Monthly Performance Reports</p>
-  <a class="btn" href="coastline/">Coastline Cleaning & Restoration</a>
-  <a class="btn" href="arco-electric/">Arco Electric</a>
-  <a class="btn pending" href="clean-space-environmental/">Clean Space Environmental</a>
-  <a class="btn pending" href="pure-air-environmental/">Pure Air Environmental</a>
-  <a class="btn pending" href="rainbow-restoration-shoreview/">Rainbow Restoration of Shoreview</a>
-  <a class="btn pending" href="violand-management/">Violand Management</a>
-  <a class="btn pending" href="vista-hills-storage/">Vista Hills Storage</a>
-  <a class="btn pending" href="stop-restoration-albuquerque/">STOP Restoration of Albuquerque</a>
-  <a class="btn pending" href="xtreme-mobile-shrinkwrap/">Xtreme Mobile Shrinkwrap</a>
-  <a class="btn pending" href="wylander/">Wylander</a>
+  <div class="select-wrap">
+    <select id="clientSelect">
+      <option value="" disabled selected>Select a client...</option>
+      <option value="arco-electric/">Arco Electric</option>
+      <option value="coastline/">Coastline Cleaning & Restoration</option>
+      <option value="clean-space-environmental/" disabled>Clean Space Environmental (coming soon)</option>
+      <option value="pure-air-environmental/" disabled>Pure Air Environmental (coming soon)</option>
+      <option value="rainbow-restoration-shoreview/" disabled>Rainbow Restoration of Shoreview (coming soon)</option>
+      <option value="stop-restoration-albuquerque/" disabled>STOP Restoration of Albuquerque (coming soon)</option>
+      <option value="violand-management/" disabled>Violand Management (coming soon)</option>
+      <option value="vista-hills-storage/" disabled>Vista Hills Storage (coming soon)</option>
+      <option value="wylander/" disabled>Wylander (coming soon)</option>
+      <option value="xtreme-mobile-shrinkwrap/" disabled>Xtreme Mobile Shrinkwrap (coming soon)</option>
+    </select>
+    <span class="arrow">▾</span>
+  </div>
+  <button class="go-btn" id="goBtn" disabled onclick="go()">View Report</button>
 </div>
+<script>
+const sel = document.getElementById('clientSelect');
+const btn = document.getElementById('goBtn');
+sel.addEventListener('change', () => { btn.disabled = !sel.value; });
+function go() { if (sel.value) window.location.href = sel.value; }
+sel.addEventListener('dblclick', go);
+sel.addEventListener('keydown', e => { if (e.key === 'Enter' && sel.value) go(); });
+</script>
 </body>
 </html>
